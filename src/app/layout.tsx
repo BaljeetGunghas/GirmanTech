@@ -25,8 +25,8 @@ const geistMono = localFont({
 
 // Metadata for the document
 export const metadata: Metadata = {
-  title: "Next.js App with Custom Fonts",
-  description: "A Next.js application with Google and local fonts integration",
+  title: "Girman Tech - IT consulting &amp; Services company",
+  description: "We specialise in web and mobile application development, specially leveraging Generative AI and LLM tech.",
 };
 
 export default function RootLayout({

@@ -9,7 +9,8 @@ import SearchHeader from '../Components/Header/SearchHeader';
 import UserCard from '../Components/Cards/UserCard';
 import noresultimage from '@/../public/noresult.svg';
 import { useRouter } from 'next/navigation';
-
+import search from '@/../public/search.svg';
+import LoadingModel from '../Components/Model/LoadingModel';
 
 export interface IFUserData {
     _id: string,
@@ -20,13 +21,18 @@ export interface IFUserData {
 }
 
 const SearchResult = () => {
-    const searchParams = useSearchParams()
+    const searchParams = useSearchParams();
     const router = useRouter();
     const [searchInput, setSearchInput] = useState<string>('');
     const [userData, setUserData] = useState<IFUserData[] | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const getSearchData = async (searchkey: string) => {
-        if (!searchkey) return;
+        setLoading(true);
+        if (!searchkey) {
+            setLoading(false);
+            return;
+        };
 
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_URL}data/get-user-list`, {
@@ -35,19 +41,20 @@ const SearchResult = () => {
 
             const responseData = response.data;
             if (responseData.output > 0) {
-                setUserData(responseData.jsonResponse)
+                setUserData(responseData.jsonResponse);
             }
 
         } catch (error) {
             console.error('Error fetching search data:', error);
         }
+        setLoading(false);
     };
 
     useEffect(() => {
         const key = searchParams.toString();
-        const keyvalue = key?.split("=")[1]
+        const keyvalue = key?.split("=")[1];
         if (key && keyvalue) {
-            setSearchInput(keyvalue)
+            setSearchInput(keyvalue);
             getSearchData(keyvalue);
         }
 
@@ -55,8 +62,9 @@ const SearchResult = () => {
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-        if(searchInput){
+        if (searchInput) {
             router.replace(`/SearchResult?searchkey=${searchInput}`, undefined);
+            setUserData([]);
             getSearchData(searchInput);
         }
     }
@@ -66,26 +74,46 @@ const SearchResult = () => {
             <SearchHeader searchInput={searchInput} setSearchInput={setSearchInput} handlesubmit={handleSearch} />
             <div className={classes.homePageMain}>
                 <div className={classes.contentContainer}>
+                    <form onSubmit={handleSearch}>
+                        <div className={classes.searchBar}>
+                            <Image src={search} alt="Logo" />
+                            <input
+                                type="text"
+                                className={classes.searchInput}
+                                value={searchInput}
+                                onChange={e => setSearchInput(e.target.value)}
+                                placeholder="Search"
+                            />
+                        </div>
+                    </form>
+
                     {userData && userData?.length > 0 ?
                         userData?.map((user: IFUserData) => {
                             return (
                                 <UserCard userCard={user} key={user._id} />
-
                             )
                         })
                         : (
-                            <>
-                                <div className={classes.NoResultSec}>
-                                    <Image alt='noresult' src={noresultimage} />
-                                    <p className={classes.noresultText}>No results found.</p>
-                                </div>
-                            </>
+                            <div className={classes.NoResultSec}>
+                                <Image alt='noresult' src={noresultimage} />
+                                <p className={classes.noresultText}>No results found.</p>
+                            </div>
                         )
                     }
                 </div>
             </div>
+            {loading && <LoadingModel isOpen={loading} onClose={setLoading} />}
         </>
     );
 };
 
-export default SearchResult;
+// Wrap the component with Suspense for searchParams
+const SearchResultWithSuspense = () => {
+    return (
+        <React.Suspense fallback={<LoadingModel isOpen={true} onClose={() => { }} />}>
+            <SearchResult />
+        </React.Suspense>
+    );
+};
+
+export default SearchResultWithSuspense;
