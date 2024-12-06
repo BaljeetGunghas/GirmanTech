@@ -10,12 +10,76 @@
   align-items: center;
   flex-direction: column;
   gap: 2rem;
-  //   justify-content: center;
   position: relative;
   .contentContainer {
     text-align: center;
     margin-top: 10rem;
     display: flex;
+    .homePageMain {
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 1),
+        rgba(177, 203, 255, 1)
+      );
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 2rem;
+      position: relative;
+      padding: 1rem;
+
+      .contentContainer {
+        text-align: center;
+        margin-top: 10rem;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        .logo {
+          height: 8rem;
+          width: 33rem;
+
+          img {
+            height: 100%;
+            width: 95%;
+          }
+        }
+
+        .searchBar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 0.2rem 1rem;
+          border-radius: 12px;
+          max-width: 800px;
+          width: 100%;
+          border: 1px solid rgba(215, 215, 234, 1);
+
+          .searchInput {
+            border: none;
+            outline: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 1rem;
+            background-color: transparent;
+            text-transform: capitalize;
+          }
+
+          .searchIcon {
+            font-size: 18px;
+            color: rgba(113, 113, 122, 1);
+            font-weight: 500;
+          }
+        }
+      }
+
+      // Media Queries for Responsiveness
+    }
+
     flex-direction: column;
     gap: 40px;
 
@@ -56,6 +120,71 @@
         font-size: 18px;
         color: rgba(113, 113, 122, 1);
         font-weight: 500;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .homePageMain {
+    .contentContainer {
+      margin-top: 9rem;
+      gap: 30px;
+
+      .logo {
+        height: 6rem;
+        width: 20rem;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .searchBar {
+        padding: 0.5rem;
+        border-radius: 12px;
+
+        .searchInput {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.9rem;
+          background-color: transparent;
+          text-transform: capitalize;
+          color: #71717a;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .homePageMain {
+    .contentContainer {
+      margin-top: 8rem;
+
+      .logo {
+        height: 4rem;
+        width: 16rem;
+      }
+
+      .searchBar {
+        padding: 0.4rem;
+        border-radius: 6px;
+
+        .searchInput {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 300px) {
+  .homePageMain {
+    .contentContainer {
+      // background-color: aqua;
+      .logo {
+        height: 4rem;
+        width: 14rem;
       }
     }
   }

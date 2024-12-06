@@ -8,15 +8,17 @@ import Image from 'next/image';
 import banner from '../../../public/banner-img.svg';
 import search from '../../../public/search.svg';
 import { useRouter } from 'next/navigation';
+import LoadingModel from '../Components/Model/LoadingModel';
 
 const HomePage = () => {
     const router = useRouter();
     const [searchInput, setSearchInput] = useState<string>('');
-
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
         if (searchInput) {
+            setLoading(true);
             router.push(`/SearchResult?searchkey=${searchInput}`);
         }
     };
@@ -43,6 +45,7 @@ const HomePage = () => {
                     </form>
                 </div>
             </div>
+           {loading && <LoadingModel isOpen={loading} onClose={setLoading} />}
         </>
     );
 };

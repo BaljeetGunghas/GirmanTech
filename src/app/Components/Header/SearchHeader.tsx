@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '@/../public/Logo.svg';
 import search from '@/../public/search.svg';
+import { usePathname } from 'next/navigation';
+import menu from '@/../public/menu.svg';
 
 interface Components {
     searchInput: string;
@@ -15,7 +17,16 @@ interface Components {
 }
 
 const SearchHeader: React.FC<Components> = ({ searchInput, setSearchInput, handlesubmit }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
+    const isActive = (path: string) => {
+        return pathname === path ? styles.active : '';
+    };
+
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+    };
 
     return (
         <header className={styles.header}>
@@ -25,6 +36,28 @@ const SearchHeader: React.FC<Components> = ({ searchInput, setSearchInput, handl
                     <Image src={logo} alt='logo' />
                 </Link>
             </div>
+
+             {/* Hamburger Button */}
+             <button className={styles.hamburger} onClick={toggleMenu} aria-label="Menu">
+                    <Image src={menu} alt="menu" />
+               
+            </button>
+
+            {/* Navigation Links */}
+            <nav className={`${styles.nav} ${!isMenuOpen ? styles.close : styles.open}`}>
+                <Link href="/" className={`${styles.link} ${isActive('/SearchResult')}`} onClick={() => setIsMenuOpen(false)}>
+                    Search
+                </Link>
+                <Link className={styles.link} href="https://girmantech.com/" target="_blank" onClick={() => setIsMenuOpen(false)}>
+                    Website
+                </Link>
+                <Link className={styles.link} href="https://www.linkedin.com/company/girmantech/" target="_blank" onClick={() => setIsMenuOpen(false)}>
+                    LinkedIn
+                </Link>
+                <Link className={styles.link} href="mailto:contact@girmantech.com" onClick={() => setIsMenuOpen(false)}>
+                    Contact
+                </Link>
+            </nav>
 
             {/* Right Links */}
             <nav className={styles.nav}>
