@@ -5,15 +5,11 @@
 
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
+  /* padding: 80px; */
+  height: 100vh;
   gap: 64px;
   font-family: var(--font-geist-sans);
+  margin: 0%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,7 +31,7 @@
 }
 
 .main ol {
-  font-family: var(--font-geist-mono);
+  font-family: var(--font-geist-sans);
   padding-left: 0;
   margin: 0;
   font-size: 14px;

@@ -1,0 +1,62 @@
+.homePageMain {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    rgba(177, 203, 255, 1)
+  );
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  //   justify-content: center;
+  position: relative;
+  .contentContainer {
+    text-align: center;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .logo {
+      height: 8rem;
+      width: 33rem;
+
+      img {
+        height: 100%;
+        width: 95%;
+      }
+    }
+
+    .searchBar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 0.2rem 1rem;
+      border-radius: 12px;
+      width: 50%;
+      max-width: 800px;
+      width: 100%;
+      border: 1px solid rgba(215, 215, 234, 1);
+
+      .searchInput {
+        border: none;
+        outline: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+        width: 100%;
+        font-size: 1rem;
+        background-color: transparent;
+        text-transform: capitalize;
+      }
+
+      .searchIcon {
+        font-size: 18px;
+        color: rgba(113, 113, 122, 1);
+        font-weight: 500;
+      }
+    }
+  }
+}
